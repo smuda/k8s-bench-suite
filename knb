@@ -299,6 +299,11 @@ function run-client {
 	  nodeSelector:
 	    kubernetes.io/hostname: $CLIENT_NODE
 	  restartPolicy: Never
+	  securityContext:
+	    runAsNonRoot: true
+	    runAsUser: 50000
+	    seccompProfile:
+	      type: "RuntimeDefault"
 	EOF
 
 	RESOURCE_TO_CLEAN_BEFORE_EXIT="$RESOURCE_TO_CLEAN_BEFORE_EXIT pod/$POD_NAME"
@@ -372,6 +377,11 @@ function initialize-plotly-pod {
           drop:
             - "ALL"
 	  restartPolicy: Never
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 50000
+      seccompProfile:
+        type: "RuntimeDefault"
 	EOF
 
 	RESOURCE_TO_CLEAN_BEFORE_EXIT="$RESOURCE_TO_CLEAN_BEFORE_EXIT pod/$POD_NAME"
@@ -1085,6 +1095,11 @@ spec:
           - "ALL"
   nodeSelector:
     kubernetes.io/hostname: $SERVER_NODE
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 50000
+    seccompProfile:
+      type: "RuntimeDefault"
 EOF
 
 RESOURCE_TO_CLEAN_BEFORE_EXIT="$RESOURCE_TO_CLEAN_BEFORE_EXIT pod/$MONITOR_SERVER_POD_NAME"
@@ -1113,6 +1128,11 @@ spec:
           - "ALL"
   nodeSelector:
     kubernetes.io/hostname: $CLIENT_NODE
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 50000
+    seccompProfile:
+      type: "RuntimeDefault"
 EOF
 
 RESOURCE_TO_CLEAN_BEFORE_EXIT="$RESOURCE_TO_CLEAN_BEFORE_EXIT pod/$MONITOR_CLIENT_POD_NAME"
@@ -1147,6 +1167,11 @@ spec:
           - "ALL"
   nodeSelector:
     kubernetes.io/hostname: $SERVER_NODE
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 50000
+    seccompProfile:
+      type: "RuntimeDefault"
 ---
 apiVersion: v1
 kind: Service
