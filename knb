@@ -287,6 +287,11 @@ function run-client {
 	  containers:
 	  - name: iperf
 	    image: infrabuilder/bench-iperf3
+	    securityContext:
+	      allowPrivilegeEscalation: false
+	      capabilities:
+	        drop:
+	          - ALL
 	    args:
 	    - /bin/sh
 	    - -c
@@ -361,6 +366,11 @@ function initialize-plotly-pod {
 	  containers:
 	  - name: plotly-orca
 	    image: quay.io/plotly/orca
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - "ALL"
 	  restartPolicy: Never
 	EOF
 
@@ -1068,6 +1078,11 @@ spec:
   containers:
   - name: monitor
     image: infrabuilder/bench-custom-monitor
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - "ALL"
   nodeSelector:
     kubernetes.io/hostname: $SERVER_NODE
 EOF
@@ -1091,6 +1106,11 @@ spec:
   containers:
   - name: monitor
     image: infrabuilder/bench-custom-monitor
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - "ALL"
   nodeSelector:
     kubernetes.io/hostname: $CLIENT_NODE
 EOF
@@ -1120,6 +1140,11 @@ spec:
     args:
     - iperf3
     - -s
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop:
+          - "ALL"
   nodeSelector:
     kubernetes.io/hostname: $SERVER_NODE
 ---
