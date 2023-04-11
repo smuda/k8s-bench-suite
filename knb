@@ -371,11 +371,11 @@ function initialize-plotly-pod {
 	  containers:
 	  - name: plotly-orca
 	    image: quay.io/plotly/orca
-      securityContext:
-        allowPrivilegeEscalation: false
-        capabilities:
-          drop:
-            - "ALL"
+	    securityContext:
+	      allowPrivilegeEscalation: false
+	      capabilities:
+	        drop:
+	          - "ALL"
 	  restartPolicy: Never
     securityContext:
       runAsNonRoot: true
