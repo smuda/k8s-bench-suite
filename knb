@@ -1093,6 +1093,9 @@ spec:
       capabilities:
         drop:
           - "ALL"
+    volumeMounts:
+      - mountPath: /data
+        name: data
   nodeSelector:
     kubernetes.io/hostname: $SERVER_NODE
   securityContext:
@@ -1100,6 +1103,9 @@ spec:
     runAsUser: 50000
     seccompProfile:
       type: "RuntimeDefault"
+  volumes:
+    - name: data
+      emptyDir: {}
 EOF
 
 RESOURCE_TO_CLEAN_BEFORE_EXIT="$RESOURCE_TO_CLEAN_BEFORE_EXIT pod/$MONITOR_SERVER_POD_NAME"
@@ -1126,6 +1132,9 @@ spec:
       capabilities:
         drop:
           - "ALL"
+    volumeMounts:
+      - mountPath: /data
+        name: data
   nodeSelector:
     kubernetes.io/hostname: $CLIENT_NODE
   securityContext:
@@ -1133,6 +1142,9 @@ spec:
     runAsUser: 50000
     seccompProfile:
       type: "RuntimeDefault"
+  volumes:
+    - name: data
+      emptyDir: {}
 EOF
 
 RESOURCE_TO_CLEAN_BEFORE_EXIT="$RESOURCE_TO_CLEAN_BEFORE_EXIT pod/$MONITOR_CLIENT_POD_NAME"
