@@ -377,11 +377,11 @@ function initialize-plotly-pod {
 	        drop:
 	          - "ALL"
 	  restartPolicy: Never
-    securityContext:
-      runAsNonRoot: true
-      runAsUser: 50000
-      seccompProfile:
-        type: "RuntimeDefault"
+	  securityContext:
+	    runAsNonRoot: true
+	    runAsUser: 50000
+	    seccompProfile:
+	      type: "RuntimeDefault"
 	EOF
 
 	RESOURCE_TO_CLEAN_BEFORE_EXIT="$RESOURCE_TO_CLEAN_BEFORE_EXIT pod/$POD_NAME"
