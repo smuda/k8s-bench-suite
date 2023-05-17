@@ -111,6 +111,10 @@ RUN_TEST_P2P_UDP="true"
 RUN_TEST_P2S_TCP="true"
 RUN_TEST_P2S_UDP="true"
 
+IMAGE_BENCH_IPERF=${IMAGE_BENCH_IPERF:-infrabuilder/bench-iperf3}
+IMAGE_PLOTLY_ORCA=${IMAGE_PLOTLY_ORCA:-quay.io/plotly/orca}
+IMAGE_BENCH_MONITOR=${IMAGE_BENCH_MONITOR:-infrabuilder/bench-custom-monitor}
+
 export LC_ALL=C # Trick to no depend on locale
 BIN_AWK="awk"
 
@@ -286,7 +290,7 @@ function run-client {
 	spec:
 	  containers:
 	  - name: iperf
-	    image: infrabuilder/bench-iperf3
+	    image: ${IMAGE_BENCH_IPERF}
 	    securityContext:
 	      allowPrivilegeEscalation: false
 	      capabilities:
@@ -370,7 +374,7 @@ function initialize-plotly-pod {
 	spec:
 	  containers:
 	  - name: plotly-orca
-	    image: quay.io/plotly/orca
+	    image: ${IMAGE_PLOTLY_ORCA}
 	    securityContext:
 	      allowPrivilegeEscalation: false
 	      capabilities:
@@ -1087,7 +1091,7 @@ metadata:
 spec:
   containers:
   - name: monitor
-    image: infrabuilder/bench-custom-monitor
+    image: ${IMAGE_BENCH_MONITOR}
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
@@ -1126,7 +1130,7 @@ metadata:
 spec:
   containers:
   - name: monitor
-    image: infrabuilder/bench-custom-monitor
+    image: ${IMAGE_BENCH_MONITOR}
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:
@@ -1168,7 +1172,7 @@ metadata:
 spec:
   containers:
   - name: iperf
-    image: infrabuilder/netbench:server-iperf3
+    image: ${IMAGE_BENCH_IPERF}
     args:
     - iperf3
     - -s
